@@ -127,6 +127,7 @@
               "projects/admin/src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "projects/admin/src/styles.scss"
             ],
             "scripts": []
@@ -190,6 +191,7 @@
               "projects/admin/src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
               "projects/admin/src/styles.scss"
             ],
             "scripts": []
