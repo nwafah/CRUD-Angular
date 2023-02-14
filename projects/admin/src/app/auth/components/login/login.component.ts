@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder,private loginService:LoginService,private toastr:ToastrService) { }
 
   loginForm!:FormGroup;
   ngOnInit(): void {
@@ -18,12 +20,13 @@ export class LoginComponent implements OnInit {
   createForm(){
     this.loginForm=this.fb.group({
       email:['',[Validators.email,Validators.required]],
-      password:['',[Validators.required,Validators.min(3),Validators.max(20)]]
+      password:['',[Validators.required,Validators.min(3),Validators.max(20)]],
+      role:['admin']
     })
   }
 
   login(){
-    console.log(this.loginForm.value);
+    this.loginService.login( this.loginForm.value).subscribe(res=>{},error =>{});   
   }
 
 }

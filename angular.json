@@ -30,7 +30,10 @@
               "projects/user/src/assets"
             ],
             "styles": [
-              "projects/user/src/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "projects/user/src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
@@ -93,7 +96,10 @@
               "projects/user/src/assets"
             ],
             "styles": [
-              "projects/user/src/styles.scss"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "projects/user/src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           }
@@ -128,7 +134,9 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "projects/admin/src/styles.scss"
+              "./node_modules/bootstrap/dist/css/bootstrap.css",
+              "projects/admin/src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
@@ -192,7 +200,9 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "projects/admin/src/styles.scss"
+              "@angular/bootstrap/dist/css/bootstrap.css",
+              "projects/admin/src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           }
