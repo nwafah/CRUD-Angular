@@ -11,6 +11,8 @@ export class LoginService {
   constructor(private http:HttpClient) { }
 
   login(model:Login) {
+    console.log("🚀 ~ file: login.service.ts:14 ~ LoginService ~ login ~ model", model)
+    
    return this.http.post('https://crud-4n6y.onrender.com/auth/login',model);
   }
 }

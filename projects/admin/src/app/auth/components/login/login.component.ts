@@ -35,7 +35,8 @@ export class LoginComponent implements OnInit {
 
   login(){
     this.spinner.show();
-    this.loginService.login( this.loginForm.value).subscribe(res=>{
+    this.loginService.login( this.loginForm.value).subscribe((res:any)=>{
+      localStorage.setItem('token',res.token);
       this.toastrService.success('Success','Login Success !');
       this.router.navigate(['/tasks']);
       this.spinner.hide();
