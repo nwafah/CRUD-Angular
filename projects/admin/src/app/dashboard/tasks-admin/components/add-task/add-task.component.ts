@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -17,6 +17,25 @@ export class AddTaskComponent implements OnInit {
     {name:"Ahmed" , id:3},
     {name:"Zain" , id:4},
   ]
+  newTaskForm!:FormGroup;
+
   ngOnInit(): void {
+    this.createForm();
   }
+
+  createForm(){
+    this.newTaskForm=this.fb.group({
+      title:['',Validators.required],
+      userId:['',Validators.required],
+      image:['',Validators.required],
+      description:['',Validators.required],
+      deadline:['',Validators.required],
+    });
+  }
+
+  createTask(){
+    console.log("🚀 ~ file: add-task.component.ts:38 ~ AddTaskComponent ~ createTask ~ this.newTaskForm.value", this.newTaskForm.value);
+  }
+    
+
 }

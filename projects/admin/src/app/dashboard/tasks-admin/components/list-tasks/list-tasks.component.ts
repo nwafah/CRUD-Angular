@@ -43,7 +43,8 @@ export class ListTasksComponent implements OnInit {
     {name:"In-Prossing" , id:2},
   ]
   constructor(
-    private tasksService: TasksService
+    private tasksService: TasksService,
+    private dialog: MatDialog
     ) { }
 
   ngOnInit(): void {
@@ -62,5 +63,15 @@ export class ListTasksComponent implements OnInit {
 
       }
       );
+  }
+
+  addTask(){
+    
+    const dialogRef = this.dialog.open(AddTaskComponent, {
+      width:'750px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
   }
 }
