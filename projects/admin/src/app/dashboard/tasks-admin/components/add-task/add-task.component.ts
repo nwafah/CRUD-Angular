@@ -38,6 +38,12 @@ export class AddTaskComponent implements OnInit {
       deadline:['',Validators.required],
     });
   }
+  prepareFormDate(){
+    let formData=new FormData();
+    Object.entries(this.newTaskForm.value).forEach((key,value) => {
+      console.log("🚀 ~ file: add-task.component.ts:44 ~ AddTaskComponent ~ Object.entries ~ key", key,"~ Object.entries ~ value",value); 
+    });
+  }
   // ##### Form Events #######
   createTask(){
     let formData=new FormData();
@@ -46,14 +52,15 @@ export class AddTaskComponent implements OnInit {
     formData.append('image',this.newTaskForm.value['image']);
     formData.append('description',this.newTaskForm.value['description']);
     formData.append('deadline',this.newTaskForm.value['deadline']);
-    this.taskService.createTask(formData).subscribe(res => {
+    this.prepareFormDate();
+    // this.taskService.createTask(formData).subscribe(res => {
 
-    });
+    // });
   }
   selectImage(event:any){
     this.newTaskForm.get('image')?.setValue(event.target.files[0]);
     this.fileName=event.target.value;
   }
     
-
+ 
 }
