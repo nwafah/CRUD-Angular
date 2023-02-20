@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import * as moment from 'moment';
 import { TasksService } from '../../services/tasks.service';
 
 @Component({
@@ -39,23 +40,33 @@ export class AddTaskComponent implements OnInit {
     });
   }
   prepareFormDate(){
+    let newDate=moment(this.newTaskForm.value['deadline']).format('DD-MM-YYYY');
+
     let formData=new FormData();
-    Object.entries(this.newTaskForm.value).forEach((key,value) => {
-      console.log("🚀 ~ file: add-task.component.ts:44 ~ AddTaskComponent ~ Object.entries ~ key", key,"~ Object.entries ~ value",value); 
-    });
+    Object.entries(this.newTaskForm.value)
+    .forEach(([key,value]:any)=>{
+      if(key=='deadline'){
+        formData.append(key,newDate);
+      }
+      else{
+        formData.append(key,value);
+      }
+    }
+    );
+    return formData;
   }
   // ##### Form Events #######
   createTask(){
-    let formData=new FormData();
-    formData.append('title',this.newTaskForm.value['title']);
-    formData.append('userId',this.newTaskForm.value['userId']);
-    formData.append('image',this.newTaskForm.value['image']);
-    formData.append('description',this.newTaskForm.value['description']);
-    formData.append('deadline',this.newTaskForm.value['deadline']);
-    this.prepareFormDate();
-    // this.taskService.createTask(formData).subscribe(res => {
+    // let formData=new FormData();
+    // formData.append('title',this.newTaskForm.value['title']);
+    // formData.append('userId',this.newTaskForm.value['userId']);
+    // formData.append('image',this.newTaskForm.value['image']);
+    // formData.append('description',this.newTaskForm.value['description']);
+    // formData.append('deadline',this.newTaskForm.value['deadline']);
+    let model=this.prepareFormDate();
+    this.taskService.createTask(model).subscribe(res => {
 
-    // });
+    });
   }
   selectImage(event:any){
     this.newTaskForm.get('image')?.setValue(event.target.files[0]);
