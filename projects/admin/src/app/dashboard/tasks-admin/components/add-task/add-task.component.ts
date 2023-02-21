@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import * as moment from 'moment';
+import {  NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { TasksService } from '../../services/tasks.service';
 
 @Component({
@@ -12,10 +14,10 @@ import { TasksService } from '../../services/tasks.service';
 export class AddTaskComponent implements OnInit {
   //#### Local form Variable
   users:any = [
-    {name:"Moahmed" , id:1},
-    {name:"Ali" , id:2},
-    {name:"Ahmed" , id:3},
-    {name:"Zain" , id:4},
+    {name:"Moahmed" , id:'63f46258ff653d8c3c756133'},
+    {name:"Ali" , id:'63f4634aff653d8c3c756136'},
+    {name:"Ahmed" , id:'63f4635eff653d8c3c756139'},
+    {name:"Zain" , id:'63f4637fff653d8c3c75613c'},
   ]
   newTaskForm!:FormGroup;
   fileName='';
@@ -24,7 +26,9 @@ export class AddTaskComponent implements OnInit {
     private fb:FormBuilder,
     public dialog: MatDialogRef<AddTaskComponent>,
     public matDialog:MatDialog,
-    private taskService:TasksService
+    private taskService:TasksService,
+    private toastrService:ToastrService,
+    private spinner:NgxSpinnerService,
     ) { }
   ngOnInit(): void {
     this.createForm();
@@ -32,7 +36,7 @@ export class AddTaskComponent implements OnInit {
   //### private methods
   createForm(){
     this.newTaskForm=this.fb.group({
-      title:['',Validators.required],
+      title:['',[Validators.required,Validators.minLength(5)]],
       userId:['',Validators.required],
       image:['',Validators.required],
       description:['',Validators.required],
@@ -57,6 +61,7 @@ export class AddTaskComponent implements OnInit {
   }
   // ##### Form Events #######
   createTask(){
+    this.spinner.show();
     // let formData=new FormData();
     // formData.append('title',this.newTaskForm.value['title']);
     // formData.append('userId',this.newTaskForm.value['userId']);
@@ -65,7 +70,12 @@ export class AddTaskComponent implements OnInit {
     // formData.append('deadline',this.newTaskForm.value['deadline']);
     let model=this.prepareFormDate();
     this.taskService.createTask(model).subscribe(res => {
-
+      this.toastrService.success('Task Created Successfully','Success');
+      this.spinner.hide();
+      this.dialog.close();
+    },error=>{
+      this.toastrService.error(error.error.message);
+      this.spinner.hide();
     });
   }
   selectImage(event:any){
