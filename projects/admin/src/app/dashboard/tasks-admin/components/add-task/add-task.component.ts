@@ -74,6 +74,7 @@ export class AddTaskComponent implements OnInit {
       this.spinner.hide();
       this.dialog.close();
     },error=>{
+      console.log(error);
       this.toastrService.error(error.error.message);
       this.spinner.hide();
     });

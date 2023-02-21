@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'projects/admin/src/environments/environment';
 import { CreateTask } from '../context/DTOs';
 
 @Injectable({
@@ -7,13 +8,13 @@ import { CreateTask } from '../context/DTOs';
 })
 export class TasksService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getAllTasks(){
-    return this.http.get('https://crud-4n6y.onrender.com/tasks/all-tasks');
+  getAllTasks() {
+    return this.http.get(environment.baseApi + '/all-tasks');
   }
 
-  createTask(model:any){
-    return this.http.post('https://crud-4n6y.onrender.com/tasks/add-task',model);
+  createTask(model: any) {
+    return this.http.post(environment.baseApi + '/add-task', model);
   }
 }
