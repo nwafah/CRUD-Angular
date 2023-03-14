@@ -12,7 +12,7 @@ export interface PeriodicElement {
   status: string;
 }
 
- 
+
 @Component({
   selector: 'app-list-tasks',
   templateUrl: './list-tasks.component.html',
@@ -20,19 +20,19 @@ export interface PeriodicElement {
 })
 export class ListTasksComponent implements OnInit {
   //### Local Variables #####
-  displayedColumns: string[] = ['position', 'title', 'user' ,'deadline','status', 'actions'];
-  dataSource:any = [];
-  tasksFilter!:FormGroup
-  users:any = [
-    {name:"Moahmed" , id:1},
-    {name:"Ali" , id:2},
-    {name:"Ahmed" , id:3},
-    {name:"Zain" , id:4},
+  displayedColumns: string[] = ['position', 'title', 'user', 'deadline', 'status', 'actions'];
+  dataSource: any = [];
+  tasksFilter!: FormGroup
+  users: any = [
+    { name: "Moahmed", id: 1 },
+    { name: "Ali", id: 2 },
+    { name: "Ahmed", id: 3 },
+    { name: "Zain", id: 4 },
   ]
 
-  status:any = [
-    {name:"Complete" , id:1},
-    {name:"In-Prossing" , id:2},
+  status: any = [
+    { name: "Complete", id: 1 },
+    { name: "In-Prossing", id: 2 },
   ]
   //### component Life Hook's #####
   constructor(
@@ -40,19 +40,17 @@ export class ListTasksComponent implements OnInit {
     private dialog: MatDialog,
     private spinnerService: NgxSpinnerService,
     private toastrService: ToastrService,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
-
     this.getAllTasks();
-   
   }
   //### private methods 
   getAllTasks() {
     this.spinnerService.show();
     this.tasksService.getAllTasks()
-      .subscribe((res:any) => {
-        this.dataSource=this.mappingTasks(res.tasks);
+      .subscribe((res: any) => {
+        this.dataSource = this.mappingTasks(res.tasks);
         this.spinnerService.hide();
       }, error => {
         this.toastrService.error(error.error.message);
@@ -60,28 +58,38 @@ export class ListTasksComponent implements OnInit {
       }
       );
   }
-  mappingTasks(data:any[]){
-    let newTasks=data.map(item=>{
-      return{
+  mappingTasks(data: any[]) {
+    let newTasks = data.map(item => {
+      return {
         // title:item.title,
         // deadline:item.deadline,
         // status:item.status,
         ...item,
-        user:item.userId.username
+        user: item.userId.username
       }
     });
     return newTasks;
   }
   //### Events ####
-  addTask(){
+  addTask() {
     const dialogRef = this.dialog.open(AddTaskComponent, {
-      width:'750px'
+      width: '750px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.getAllTasks();
       }
+    });
+  }
+  deleteTask(id: any) {
+    this.spinnerService.show();
+    this.tasksService.deleteTask(id).subscribe(reg =>{
+      this.spinnerService.hide();
+      this.getAllTasks();
+    },error=>{
+      this.toastrService.error(error.error.message);
+      this.spinnerService.hide();
     });
   }
 }
