@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as moment from 'moment';
 import {  NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { TasksService } from '../../services/tasks.service';
+ 
 
 @Component({
   selector: 'app-add-task',
@@ -23,6 +24,7 @@ export class AddTaskComponent implements OnInit {
   fileName='';
   //### Component Life Hooks ####
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data:any, 
     private fb:FormBuilder,
     public dialog: MatDialogRef<AddTaskComponent>,
     public matDialog:MatDialog,
@@ -36,11 +38,11 @@ export class AddTaskComponent implements OnInit {
   //### private methods
   createForm(){
     this.newTaskForm=this.fb.group({
-      title:['',[Validators.required,Validators.minLength(5)]],
-      userId:['',Validators.required],
-      image:['',Validators.required],
-      description:['',Validators.required],
-      deadline:['',Validators.required],
+      title:[this.data?.title||'',[Validators.required,Validators.minLength(5)]],
+      userId:[this.data?.userId._id||'',Validators.required],
+      image:[this.data?.image||'',Validators.required],
+      description:[this.data?.description||'',Validators.required],
+      deadline:[this.data ? new Date(this.data?.deadline?.split('-').reverse().join('-')).toISOString():'',Validators.required],
     });
   }
   prepareFormDate(){
@@ -79,6 +81,21 @@ export class AddTaskComponent implements OnInit {
       this.spinner.hide();
     });
   }
+
+  updateTask(){
+    this.spinner.show();
+    let model=this.prepareFormDate();
+    this.taskService.createTask(model).subscribe(res => {
+      this.toastrService.success('Task Created Successfully','Success');
+      this.spinner.hide();
+      this.dialog.close(true);
+    },error=>{
+      console.log(error);
+      this.toastrService.error(error.error.message);
+      this.spinner.hide();
+    });
+  }
+
   selectImage(event:any){
     this.newTaskForm.get('image')?.setValue(event.target.files[0]);
     this.fileName=event.target.value;
