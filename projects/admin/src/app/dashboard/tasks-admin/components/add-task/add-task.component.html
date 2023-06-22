@@ -49,8 +49,10 @@
 
     <footer class="tw-p-6">
         <div class="d-flex justify-content-center align-items-center">
-            <button  class="btn btn-success py-1 px-5 mx-2" (click)="createTask()" [disabled]="!newTaskForm.valid" >Create</button>
-            <button class="btn btn-danger py-1 px-5" matDialogClose>Close</button>
+            <button *ngIf="!data" mat-flat-button class="btn btn-success py-1 px-5 mx-2" (click)="createTask()" [disabled]="!newTaskForm.valid" >Create</button>
+            <button *ngIf="data" mat-flat-button  class="btn btn-success py-1 px-5 mx-2" (click)="updateTask()" [disabled]="!newTaskForm.valid" >Update</button>
+            <!-- matDialogClose if you add this to close button it will auto close  -->
+            <button class="btn btn-danger py-1 px-5" (click)="close()">Close</button>
           </div>
       </footer>
 </div>

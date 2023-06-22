@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import {  NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { TasksService } from '../../services/tasks.service';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
  
 
 @Component({
@@ -22,6 +23,7 @@ export class AddTaskComponent implements OnInit {
   ]
   newTaskForm!:FormGroup;
   fileName='';
+  formValues:any;//this variable will hold data to check if there is change by user.(compare data between old and new)
   //### Component Life Hooks ####
   constructor(
     @Inject(MAT_DIALOG_DATA) public data:any, 
@@ -44,6 +46,7 @@ export class AddTaskComponent implements OnInit {
       description:[this.data?.description||'',Validators.required],
       deadline:[this.data ? new Date(this.data?.deadline?.split('-').reverse().join('-')).toISOString():'',Validators.required],
     });
+    this.formValues=this.newTaskForm.value;
   }
   prepareFormDate(){
     let newDate=moment(this.newTaskForm.value['deadline']).format('DD-MM-YYYY');
@@ -85,8 +88,8 @@ export class AddTaskComponent implements OnInit {
   updateTask(){
     this.spinner.show();
     let model=this.prepareFormDate();
-    this.taskService.createTask(model).subscribe(res => {
-      this.toastrService.success('Task Created Successfully','Success');
+    this.taskService.updateTask(model,this.data._id).subscribe(res => {
+      this.toastrService.success('Task Updated Successfully','Success');
       this.spinner.hide();
       this.dialog.close(true);
     },error=>{
@@ -101,5 +104,25 @@ export class AddTaskComponent implements OnInit {
     this.fileName=event.target.value;
   }
     
+  close(){
+    let hasChanges=false;
+    Object.keys(this.formValues).forEach((item)=>{
+      if(this.formValues[item] !== this.newTaskForm.value[item]){
+        hasChanges=true;
+      }
+    });
+
+    if(hasChanges){
+      const dialogRef=this.matDialog.open(
+        ConfirmationComponent,
+        {
+          width:'800px'
+        }
+      );
+    }
+    else{
+      this.dialog.close();
+    }
+  }
  
 }
