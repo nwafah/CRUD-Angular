@@ -1,0 +1,19 @@
+{
+    "tasks":{
+        "addTask":"إضافة مهمة",
+        "Complete":"مكتملة",
+        "In-Progress":"تحت التنفيذ",
+        "search":"بحث",
+        "titleSearch":"بحث بالموضوع",
+        "title":"الموضوع",
+        "User":"المستخدم",
+        "status":"الحالة",
+        "enterDateRange":"أدخل الفترة",
+        "deadLine":"تاريخ التسليم"
+    },
+    "general":{
+        "loading":"انتظار",
+        "update":"تعديل",
+        "delete":"حذف"
+    }
+}

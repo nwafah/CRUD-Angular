@@ -66,7 +66,7 @@ export class AddTaskComponent implements OnInit {
   }
   // ##### Form Events #######
   createTask(){
-    this.spinner.show();
+    //this.spinner.show(); commit this after add loader interceptor
     // let formData=new FormData();
     // formData.append('title',this.newTaskForm.value['title']);
     // formData.append('userId',this.newTaskForm.value['userId']);
@@ -76,26 +76,26 @@ export class AddTaskComponent implements OnInit {
     let model=this.prepareFormDate();
     this.taskService.createTask(model).subscribe(res => {
       this.toastrService.success('Task Created Successfully','Success');
-      this.spinner.hide();
+      // this.spinner.hide(); commit this after add loader interceptor
       this.dialog.close(true);
     },error=>{
       console.log(error);
       this.toastrService.error(error.error.message);
-      this.spinner.hide();
+      // this.spinner.hide();  commit this after add loader interceptor
     });
   }
 
   updateTask(){
-    this.spinner.show();
+    // this.spinner.show(); commit this after add loader interceptor
     let model=this.prepareFormDate();
     this.taskService.updateTask(model,this.data._id).subscribe(res => {
       this.toastrService.success('Task Updated Successfully','Success');
-      this.spinner.hide();
+      // this.spinner.hide(); commit this after add loader interceptor
       this.dialog.close(true);
     },error=>{
       console.log(error);
       this.toastrService.error(error.error.message);
-      this.spinner.hide();
+      // this.spinner.hide(); commit this after add loader interceptor
     });
   }
 

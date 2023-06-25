@@ -1,0 +1,19 @@
+{
+    "tasks":{
+        "addTask":"Add Task",
+        "Complete":"Complete",
+        "In-Progress":"In-Progress",
+        "search":"Search",
+        "titleSearch":"title search",
+        "title":"Title",
+        "User":"User",
+        "status":"Status",
+        "enterDateRange":"Enter a date range",
+        "deadLine":"DeadLine"
+    },
+    "general":{
+        "loading":"loading",
+        "update":"Update",
+        "delete":"Delete"
+    }
+}
