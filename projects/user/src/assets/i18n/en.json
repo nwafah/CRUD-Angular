@@ -1,12 +1,12 @@
 {
     "tasks":{
         "addTask":"Add Task",
-        "Complete":"Complete",
-        "In-Progress":"In-Progress",
+        "complete":"Complete",
+        "in-Progress":"In-Progress",
         "search":"Search",
         "titleSearch":"title search",
         "title":"Title",
-        "User":"User",
+        "user":"User",
         "status":"Status",
         "enterDateRange":"Enter a date range",
         "deadLine":"DeadLine",
@@ -24,7 +24,8 @@
         "create":"Create",
         "update":"Update",
         "delete":"Delete",
-        "close":"Close"
+        "close":"Close",
+        "details":"details"
     },
     "layout":{
         "subject":"Tasks",

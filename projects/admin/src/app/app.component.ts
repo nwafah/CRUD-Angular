@@ -19,5 +19,5 @@ export class AppComponent {
       translate.use(this.translate.defaultLang);
     }
   }
-  title = 'angulartasks';
+  title = 'angularTasks';
 }

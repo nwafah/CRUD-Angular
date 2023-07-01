@@ -22,6 +22,7 @@ export interface PeriodicElement {
 })
 export class ListTasksComponent implements OnInit {
   //### Local Variables #####
+  lang:any;
   displayedColumns: string[] = ['position', 'title', 'user', 'deadline', 'status', 'actions'];
   dataSource: any = [];
   tasksFilter!: FormGroup
@@ -42,13 +43,20 @@ export class ListTasksComponent implements OnInit {
    //# page
    page:any=1;
    total:any;
+
+   //#lang
+   dir:any;
   //### component Life Hook's #####
   constructor(
     private tasksService: TasksService,
     private dialog: MatDialog, 
     private toastrService: ToastrService,
     private translateService:TranslateService
-  ) { }
+  ) {
+    this.dir=this.translateService.currentLang=="en"?"ltr":"rtl";
+   }
+
+ 
 
   ngOnInit(): void {
     this.getAllTasks();
@@ -83,7 +91,8 @@ export class ListTasksComponent implements OnInit {
   addTask() {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width: '750px',
-      disableClose:true
+      disableClose:true,
+      direction:this.dir
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -107,7 +116,8 @@ export class ListTasksComponent implements OnInit {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width: '750px',
       data:element,
-      disableClose:true
+      disableClose:true,
+      direction:this.dir
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -1,21 +1,22 @@
 <div class="p-4">
     <header class="d-flex justify-content-between align-items-center" >
-        <h1 class="m-0">Add New Task</h1>
+        <h1 *ngIf="!data" class="m-0">{{ "tasks.addNewTask"|translate}}</h1>
+        <h1 *ngIf="data" class="m-0">{{ "tasks.updateExistTask"|translate}}</h1>
         <button mat-flat-button matDialogClose class="text-danger">
-          <mat-icon>close</mat-icon>
+          <mat-icon>{{ "general.close"|translate}}</mat-icon>
         </button>
       </header>
     <form [formGroup]="newTaskForm">
         <div class="row mt-3">
                 <div class="col-md-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Title</mat-label>
-                        <input matInput formControlName="title"  placeholder="title">
+                        <mat-label>{{ "tasks.title"|translate}}</mat-label>
+                        <input matInput formControlName="title"  placeholder="{{'tasks.title'|translate}}">
                     </mat-form-field>
                 </div>  
                 <div class="col-md-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>User</mat-label>
+                        <mat-label>{{'tasks.User'|translate}}</mat-label>
                         <mat-select formControlName="userId">
                             <mat-option *ngFor="let user of users" [value]="user?.id">
                               {{user?.name}}
@@ -30,7 +31,7 @@
                 </div>
                 <div class="col-md-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Deadline Date</mat-label>
+                        <mat-label>{{'tasks.deadLine'|translate}}</mat-label>
                         <input matInput [matDatepicker]="picker" formControlName="deadline" >
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
@@ -39,8 +40,8 @@
 
                 <div class="col-md-12">
                     <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Description</mat-label>
-                        <textarea matInput formControlName="description" placeholder="task description ...."></textarea>
+                        <mat-label>{{'tasks.taskDescription'|translate}}</mat-label>
+                        <textarea matInput formControlName="description" placeholder="{{'tasks.taskDescription'|translate}}"></textarea>
                     </mat-form-field>
                     
                 </div>
@@ -49,10 +50,10 @@
 
     <footer class="tw-p-6">
         <div class="d-flex justify-content-center align-items-center">
-            <button *ngIf="!data" mat-flat-button class="btn btn-success py-1 px-5 mx-2" (click)="createTask()" [disabled]="!newTaskForm.valid" >Create</button>
-            <button *ngIf="data" mat-flat-button  class="btn btn-success py-1 px-5 mx-2" (click)="updateTask()" [disabled]="!newTaskForm.valid" >Update</button>
+            <button *ngIf="!data" mat-flat-button class="btn btn-success py-1 px-5 mx-2" (click)="createTask()" [disabled]="!newTaskForm.valid" >{{'general.create'|translate}}</button>
+            <button *ngIf="data" mat-flat-button  class="btn btn-success py-1 px-5 mx-2" (click)="updateTask()" [disabled]="!newTaskForm.valid" >{{'general.update'|translate}}</button>
             <!-- matDialogClose if you add this to close button it will auto close  -->
-            <button class="btn btn-danger py-1 px-5" (click)="close()">Close</button>
+            <button class="btn btn-danger py-1 px-5" (click)="close()">{{'general.close'|translate}}</button>
           </div>
       </footer>
 </div>

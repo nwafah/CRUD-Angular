@@ -58,4 +58,13 @@ export class ListTasksComponent implements OnInit {
   getAllTasks() {
 
   }
+  //# page
+  page:any=1;
+  total:any;
+  changePage(event:any){
+    console.log(event);
+    this.page=event;
+    // this.filtration['page']=event;
+    // this.getAllTasks();
+  }
 }

@@ -1,11 +1,11 @@
 <div>
     <header>
-    <h2>are you Sure That you want To Discard your Changes ?</h2>
+    <h2>{{'tasks.confirm.confirmMessage'|translate}}</h2>
     </header>
     <footer>
         <div class="d-flex justify-content-center align-items-center">
-            <button mat-flat-button class="btn btn-success py-1 px-5 mx-2" (click)="confirm()">Yes</button>
-            <button class="btn btn-danger py-1 px-5" matDialogClose (click)="close()">Close</button>
+            <button mat-flat-button class="btn btn-success py-1 px-5 mx-2" (click)="confirm()">{{'tasks.confirm.Yes'|translate}}</button>
+            <button class="btn btn-danger py-1 px-5" matDialogClose (click)="close()">{{'tasks.confirm.close'|translate}}</button>
         </div>
     </footer>
 </div>

@@ -1,12 +1,12 @@
 {
     "tasks":{
         "addTask":"إضافة مهمة",
-        "Complete":"مكتملة",
-        "In-Progress":"تحت التنفيذ",
+        "complete":"مكتملة",
+        "in-Progress":"تحت التنفيذ",
         "search":"بحث",
         "titleSearch":"بحث بالموضوع",
         "title":"الموضوع",
-        "User":"المستخدم",
+        "user":"المستخدم",
         "status":"الحالة",
         "enterDateRange":"أدخل الفترة",
         "deadLine":"تاريخ التسليم",
@@ -24,7 +24,8 @@
         "create":"إنشاء",
         "update":"تعديل",
         "delete":"حذف",
-        "close":"إغلاق"
+        "close":"إغلاق",
+        "details":"تفاصيل"
     },
     "layout":{
         "subject":"المهمات",
