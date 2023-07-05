@@ -1,23 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-export interface PeriodicElement {
-  name: string;
-  email: string;
-  tasksAssigned: string;
-}
+import { UsersService } from '../../services/users.service';
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { name: 'Hydrogen', email: "1.0079", tasksAssigned:"10-11-2022" },
-  { name: 'Helium', email: "4.0026", tasksAssigned:"10-11-2022" },
-  { name: 'Lithium', email: "6.941", tasksAssigned:"10-11-2022" },
-  { name: 'Beryllium', email: "9.0122", tasksAssigned:"10-11-2022" },
-  { name: 'Boron', email: "10.811", tasksAssigned:"10-11-2022" },
-  { name: 'Carbon', email: "12.010", tasksAssigned:"10-11-2022" },
-  { name: 'Nitrogen', email: "14.006", tasksAssigned:"10-11-2022" },
-  { name: 'Oxygen', email: "15.999", tasksAssigned:"10-11-2022" },
-  { name: 'Fluorine', email: "18.998", tasksAssigned:"10-11-2022" },
-  {  name: 'Neon', email: "20.179", tasksAssigned:"10-11-2022" },
-];
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -25,12 +12,60 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'email' ,'tasksAssigned', 'actions'];
-  dataSource = ELEMENT_DATA;
-  constructor() { }
+  dataSource : any=[];
+    //# paging 
+    page:any=1;
+    total:any;
+    filtration:any={
+      page:this.page,
+      limit:5
+    };
+  constructor(
+    private usersService:UsersService,
+    private toastrService:ToastrService,
+    private translateService:TranslateService,
+  ) { }
 
   ngOnInit(): void {
+    this.getAllUsers();
+  }
+
+  getAllUsers(){
+    this.usersService.getUsers(this.filtration).subscribe((res:any)=>{
+      this.dataSource=res.users;
+      this.total=res.totalItems;
+    });
+  }
+  //# page
+  changePage(event:any){
+    this.page=event;
+    this.filtration['page']=event;
+    this.getAllUsers();
   }
 
 
+  //#update user status
+  updateUserStatus(ele:any){
+    let MODEL:any={
+      id:ele._id,
+      status:ele.status
+    };
+    this.usersService.changeUserStatus(MODEL).subscribe(res=>{
+      this.getAllUsers();
+      this.toastrService.success("User Status Updated","Success");
+    });
+  }
 
+  deleteUser(id: any) {
+    // this.spinnerService.show(); commit this after add loader interceptor
+    this.usersService.deleteUser(id).subscribe(reg =>{
+      // this.spinnerService.hide(); commit this after add loader interceptor
+      this.toastrService.success("User Deleted Success","Success");
+      this.getAllUsers();
+    },error=>{
+      console.log(error.error.message);
+     // this.toastrService.error(error.error.message);
+      // this.spinnerService.hide(); commit this after add loader interceptor
+    });
+  }
 }

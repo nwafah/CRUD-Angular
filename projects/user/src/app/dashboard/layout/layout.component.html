@@ -9,7 +9,7 @@
           </li>
         </ul>
        <div class="nav-item  d-flex">
-        <a class="nav-link" routerLink="/auth/login">{{'layout.logout'|translate}}</a>
+        <a class="nav-link" routerLink="/auth/login" (click)="logout()">{{'layout.logout'|translate}}</a>
         <a class="nav-link" (click)="changeLanguage()">{{lang=='en'?'عربي':'English'}}</a>
        </div>
       </div>

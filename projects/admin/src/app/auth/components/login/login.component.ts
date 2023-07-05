@@ -38,9 +38,11 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('token',res.token);
       this.toastrService.success('Success','Login Success !');
       this.router.navigate(['/tasks']);
-    },error =>{
-      this.toastrService.error(error['message'],error);
-    });   
+    });
+    // **** no need to this error because we handle in interceptor 
+    // ,error =>{
+    //   this.toastrService.error(error['message'],error);
+    // });   
   }
 
 }

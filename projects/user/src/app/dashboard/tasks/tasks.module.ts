@@ -8,11 +8,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from '../../material/material.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SharedModule } from '../../shared/shared.module';
+import { TaskDetailsComponent } from './components/task-details/task-details.component';
 
 
 @NgModule({
   declarations: [
-    ListTasksComponent
+    ListTasksComponent,
+    TaskDetailsComponent
   ],
   imports: [
     MaterialModule,

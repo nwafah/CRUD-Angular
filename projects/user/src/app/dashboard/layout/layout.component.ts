@@ -21,4 +21,8 @@ else{
 }
 window.location.reload();
   }
+
+  logout(){
+    localStorage.removeItem('token');
+  }
 }

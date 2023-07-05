@@ -32,5 +32,11 @@
         "current":"Current",
         "users":"Users",
         "logout":"Logout"
+    },
+     "user":{
+        "status":{
+        "active":"Active",
+        "in-active":"In-Active"
+        }
     }
 }

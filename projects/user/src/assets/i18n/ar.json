@@ -17,7 +17,9 @@
             "confirmMessage":"هل أنت متأكد من عدم إكمال الإجراء؟",
             "Yes":"نعم",
             "close":"رجوع"
-        }
+        },
+        "taskCompleteSuccess":"تم إكمال المهمة"
+        
     },
     "general":{
         "loading":"انتظار",
@@ -25,7 +27,8 @@
         "update":"تعديل",
         "delete":"حذف",
         "close":"إغلاق",
-        "details":"تفاصيل"
+        "details":"تفاصيل",
+        "success":"تم بنجاح"
     },
     "layout":{
         "subject":"المهمات",

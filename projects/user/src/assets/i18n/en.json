@@ -17,7 +17,8 @@
             "confirmMessage":"are you Sure That you want To Discard your Changes ?",
             "Yes":"Yes",
             "close":"Close"
-        }
+        },
+        "taskCompleteSuccess":"Task Complete Success"
     },
     "general":{
         "loading":"loading",
@@ -25,7 +26,8 @@
         "update":"Update",
         "delete":"Delete",
         "close":"Close",
-        "details":"details"
+        "details":"details",
+        "success":"Done"
     },
     "layout":{
         "subject":"Tasks",

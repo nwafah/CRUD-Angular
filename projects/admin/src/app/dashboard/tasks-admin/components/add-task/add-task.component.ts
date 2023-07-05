@@ -20,6 +20,7 @@ export class AddTaskComponent implements OnInit {
     {name:"Ali" , id:'63f4634aff653d8c3c756136'},
     {name:"Ahmed" , id:'63f4635eff653d8c3c756139'},
     {name:"Zain" , id:'63f4637fff653d8c3c75613c'},
+    {name:"user2" , id:'64997b139fb9c7b60f27004c'},
   ]
   newTaskForm!:FormGroup;
   fileName='';
