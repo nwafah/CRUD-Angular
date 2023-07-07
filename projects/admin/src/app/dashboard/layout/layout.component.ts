@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -8,17 +9,24 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LayoutComponent {
   lang:any="en";
-  constructor(private translate:TranslateService){
+  constructor(private translate:TranslateService,
+    private route:Router
+    ){
   this.lang=this.translate.currentLang;
   }
   changeLanguage(){
-if(this.lang=="en"){
-  localStorage.setItem('lang','ar');
+  if(this.lang=="en"){
+    localStorage.setItem('lang','ar');
 
-}
-else{
-  localStorage.setItem('lang','en');
-}
-window.location.reload();
+  }
+  else{
+    localStorage.setItem('lang','en');
+  }
+    window.location.reload();
+  }
+
+  logout(){
+    localStorage.removeItem('token');
+    this.route.navigate(['/login']);
   }
 }

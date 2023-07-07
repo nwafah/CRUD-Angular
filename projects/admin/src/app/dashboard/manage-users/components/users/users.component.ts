@@ -24,23 +24,29 @@ export class UsersComponent implements OnInit {
     private usersService:UsersService,
     private toastrService:ToastrService,
     private translateService:TranslateService,
-  ) { }
+  ) { 
+    this.getUsersDataFromSubject();
+  }
 
   ngOnInit(): void {
-    this.getAllUsers();
+    this.getUsers();
   }
 
-  getAllUsers(){
-    this.usersService.getUsers(this.filtration).subscribe((res:any)=>{
-      this.dataSource=res.users;
-      this.total=res.totalItems;
-    });
-  }
+  getUsers(){
+this.usersService.getAllUsers(this.filtration)
+}
+
+getUsersDataFromSubject(){
+  this.usersService.userData.subscribe((res:any)=>{
+      this.dataSource=res.data;
+      this.total=res.data;
+  })
+}
   //# page
   changePage(event:any){
     this.page=event;
     this.filtration['page']=event;
-    this.getAllUsers();
+    this.getUsers();
   }
 
 
@@ -51,7 +57,7 @@ export class UsersComponent implements OnInit {
       status:ele.status
     };
     this.usersService.changeUserStatus(MODEL).subscribe(res=>{
-      this.getAllUsers();
+      this.getUsers();
       this.toastrService.success("User Status Updated","Success");
     });
   }
@@ -61,11 +67,7 @@ export class UsersComponent implements OnInit {
     this.usersService.deleteUser(id).subscribe(reg =>{
       // this.spinnerService.hide(); commit this after add loader interceptor
       this.toastrService.success("User Deleted Success","Success");
-      this.getAllUsers();
-    },error=>{
-      console.log(error.error.message);
-     // this.toastrService.error(error.error.message);
-      // this.spinnerService.hide(); commit this after add loader interceptor
+      this.getUsers();
     });
   }
 }

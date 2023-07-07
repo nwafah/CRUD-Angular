@@ -6,6 +6,7 @@ import {  NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { TasksService } from '../../services/tasks.service';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { UsersService } from '../../../manage-users/services/users.service';
  
 
 @Component({
@@ -15,13 +16,7 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
 })
 export class AddTaskComponent implements OnInit {
   //#### Local form Variable
-  users:any = [
-    {name:"Moahmed" , id:'63f46258ff653d8c3c756133'},
-    {name:"Ali" , id:'63f4634aff653d8c3c756136'},
-    {name:"Ahmed" , id:'63f4635eff653d8c3c756139'},
-    {name:"Zain" , id:'63f4637fff653d8c3c75613c'},
-    {name:"user2" , id:'64997b139fb9c7b60f27004c'},
-  ]
+  users:any = []
   newTaskForm!:FormGroup;
   fileName='';
   formValues:any;//this variable will hold data to check if there is change by user.(compare data between old and new)
@@ -34,10 +29,30 @@ export class AddTaskComponent implements OnInit {
     private taskService:TasksService,
     private toastrService:ToastrService,
     private spinner:NgxSpinnerService,
-    ) { }
+    private useService:UsersService
+    ) { 
+      
+    this.getDataFromUserSubject();
+    }
   ngOnInit(): void {
     this.createForm();
   }
+  getDataFromUserSubject(){
+    this.useService.userData.subscribe((res:any)=>{
+      this.users=this.mappingUsers(res.data);
+    });
+  }
+
+  mappingUsers(data: any[]) {
+    let newTasks = data?.map(item => {
+      return {
+        name:item.username,
+        id:item._id
+      }
+    });
+    return newTasks;
+  }
+
   //### private methods
   createForm(){
     this.newTaskForm=this.fb.group({

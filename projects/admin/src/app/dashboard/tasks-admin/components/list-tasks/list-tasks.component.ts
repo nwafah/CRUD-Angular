@@ -7,6 +7,7 @@ import { TasksService } from '../../services/tasks.service';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import * as moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
+import { UsersService } from '../../../manage-users/services/users.service';
 export interface PeriodicElement {
   title: string;
   user: string;
@@ -27,13 +28,7 @@ export class ListTasksComponent implements OnInit {
   dataSource: any = [];
   tasksFilter!: FormGroup
   //#### Local form Variable
-  users:any = [
-    {name:"Moahmed" , id:'63f46258ff653d8c3c756133'},
-    {name:"Ali" , id:'63f4634aff653d8c3c756136'},
-    {name:"Ahmed" , id:'63f4635eff653d8c3c756139'},
-    {name:"Zain" , id:'63f4637fff653d8c3c75613c'},
-    {name:"user2" , id:'64997b139fb9c7b60f27004c'},
-  ]
+  users:any = []
 
   status: any[] = [
     // { name: "Complete", id: 1 },
@@ -52,9 +47,12 @@ export class ListTasksComponent implements OnInit {
     private tasksService: TasksService,
     private dialog: MatDialog, 
     private toastrService: ToastrService,
-    private translateService:TranslateService
+    private translateService:TranslateService,
+    private useService:UsersService
   ) {
     this.dir=this.translateService.currentLang=="en"?"ltr":"rtl";
+    this.getUsers();
+    this.getDataFromUserSubject();
    }
 
  
@@ -62,6 +60,27 @@ export class ListTasksComponent implements OnInit {
   ngOnInit(): void {
     this.getAllTasks();
   }
+
+  getUsers(){
+    this.useService.getAllUsers()
+  }
+
+  getDataFromUserSubject(){
+    this.useService.userData.subscribe((res:any)=>{
+      this.users=this.mappingUsers(res.data);
+    });
+  }
+
+  mappingUsers(data: any[]) {
+    let newTasks = data?.map(item => {
+      return {
+        name:item.username,
+        id:item._id
+      }
+    });
+    return newTasks;
+  }
+
   //### private methods 
   getAllTasks() {
     // this.spinnerService.show(); commit this after add loader interceptor
